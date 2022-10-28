@@ -1,3 +1,0 @@
-D:/CLionProjects/network1/cmake-build-debug/CMakeFiles/network1.dir
-D:/CLionProjects/network1/cmake-build-debug/CMakeFiles/edit_cache.dir
-D:/CLionProjects/network1/cmake-build-debug/CMakeFiles/rebuild_cache.dir
