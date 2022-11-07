@@ -7,4 +7,4 @@
 # NOTICE!
 不要抄袭我的代码。这都是我智慧的残渣。你可以去看我的博客，记录了如何完成网络课的作业。
 
-![mycodelike](https://raw.githubusercontent.com/TephrocactusHC/mybolgimg/master/aboutmycode.jpg)
+![mycodelike](https://raw.githubusercontent.com/TephrocactusHC/mybolgimg/master/aboutmycode(1).jpg)
