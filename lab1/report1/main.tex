@@ -1,0 +1,561 @@
+% -*- coding: utf-8 -*-
+%-------------------------designed by zcf--------------
+\documentclass[UTF8,a4paper,10pt]{ctexart}
+\usepackage[left=3.17cm, right=3.17cm, top=2.74cm, bottom=2.74cm]{geometry}
+\usepackage{amsmath}
+\usepackage{graphicx,subfig}
+\usepackage{float}
+\usepackage{cite}
+\usepackage{caption}
+\usepackage{enumerate}
+\usepackage{booktabs} %表格
+\usepackage{multirow}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}  %表格强制换行
+%-------------------------字体设置--------------
+% \usepackage{times} 
+\usepackage{ctex}
+\setCJKmainfont[ItalicFont=Noto Sans CJK SC Bold, BoldFont=Noto Serif CJK SC Black]{Noto Serif CJK SC}
+\newcommand{\yihao}{\fontsize{26pt}{36pt}\selectfont}           % 一号, 1.4 倍行距
+\newcommand{\erhao}{\fontsize{22pt}{28pt}\selectfont}          % 二号, 1.25倍行距
+\newcommand{\xiaoer}{\fontsize{18pt}{18pt}\selectfont}          % 小二, 单倍行距
+\newcommand{\sanhao}{\fontsize{16pt}{24pt}\selectfont}  %三号字
+\newcommand{\xiaosan}{\fontsize{15pt}{22pt}\selectfont}        % 小三, 1.5倍行距
+\newcommand{\sihao}{\fontsize{14pt}{21pt}\selectfont}            % 四号, 1.5 倍行距
+\newcommand{\banxiaosi}{\fontsize{13pt}{19.5pt}\selectfont}    % 半小四, 1.5倍行距
+\newcommand{\xiaosi}{\fontsize{12pt}{18pt}\selectfont}            % 小四, 1.5倍行距
+\newcommand{\dawuhao}{\fontsize{11pt}{11pt}\selectfont}       % 大五号, 单倍行距
+\newcommand{\wuhao}{\fontsize{10.5pt}{15.75pt}\selectfont}    % 五号, 单倍行距
+%-------------------------章节名----------------
+\usepackage{ctexcap} 
+\CTEXsetup[name={,、},number={ \chinese{section}}]{section}
+\CTEXsetup[name={（,）},number={\chinese{subsection}}]{subsection}
+\CTEXsetup[name={,.},number={\arabic{subsubsection}}]{subsubsection}
+%-------------------------页眉页脚--------------
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{\kaishu \leftmark}
+% \chead{}
+\rhead{\kaishu 计算机网络第一次实验}%加粗\bfseries 
+\lfoot{}
+\cfoot{\thepage}
+\rfoot{}
+\renewcommand{\headrulewidth}{0.1pt}  
+\renewcommand{\footrulewidth}{0pt}%去掉横线
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}%标题横线
+\newcommand{\HRulegrossa}{\rule{\linewidth}{1.2mm}}
+%-----------------------伪代码------------------
+\usepackage{algorithm}  
+\usepackage{algorithmicx}  
+\usepackage{algpseudocode}  
+\floatname{algorithm}{Algorithm}  
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}  
+\renewcommand{\algorithmicensure}{\textbf{Output:}} 
+\usepackage{lipsum}  
+\makeatletter
+\newenvironment{breakablealgorithm}
+  {% \begin{breakablealgorithm}
+  \begin{center}
+     \refstepcounter{algorithm}% New algorithm
+     \hrule height.8pt depth0pt \kern2pt% \@fs@pre for \@fs@ruled
+     \renewcommand{\caption}[2][\relax]{% Make a new \caption
+      {\raggedright\textbf{\ALG@name~\thealgorithm} ##2\par}%
+      \ifx\relax##1\relax % #1 is \relax
+         \addcontentsline{loa}{algorithm}{\protect\numberline{\thealgorithm}##2}%
+      \else % #1 is not \relax
+         \addcontentsline{loa}{algorithm}{\protect\numberline{\thealgorithm}##1}%
+      \fi
+      \kern2pt\hrule\kern2pt
+     }
+  }{% \end{breakablealgorithm}
+     \kern2pt\hrule\relax% \@fs@post for \@fs@ruled
+  \end{center}
+  }
+\makeatother
+%------------------------代码-------------------
+\usepackage{xcolor} 
+\usepackage{listings} 
+\lstset{ 
+breaklines,%自动换行
+basicstyle=\small,
+escapeinside=``,
+keywordstyle=\color{ blue!70} \bfseries,
+commentstyle=\color{red!50!green!50!blue!50},% 
+stringstyle=\ttfamily,% 
+extendedchars=false,% 
+linewidth=\textwidth,% 
+numbers=left,% 
+numberstyle=\tiny \color{blue!50},% 
+frame=trbl% 
+rulesepcolor= \color{ red!20!green!20!blue!20} 
+}
+%------------超链接----------
+\usepackage[colorlinks,linkcolor=black,anchorcolor=blue]{hyperref}
+%------------------------TODO-------------------
+\usepackage{enumitem,amssymb}
+\newlist{todolist}{itemize}{2}
+\setlist[todolist]{label=$\square$}
+% for check symbol 
+\usepackage{pifont}
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+\newcommand{\done}{\rlap{$\square$}{\raisebox{2pt}{\large\hspace{1pt}\cmark}}\hspace{-2.5pt}}
+\newcommand{\wontfix}{\rlap{$\square$}{\large\hspace{1pt}\xmark}}
+%------------------------水印-------------------
+\usepackage{tikz}
+\usepackage{xcolor}
+\usepackage{eso-pic}
+
+\newcommand{\watermark}[3]{\AddToShipoutPictureBG{
+\parbox[b][\paperheight]{\paperwidth}{
+\vfill%
+\centering%
+\tikz[remember picture, overlay]%
+  \node [rotate = #1, scale = #2] at (current page.center)%
+    {\textcolor{gray!80!cyan!30!magenta!30}{#3}};
+\vfill}}}
+
+
+
+%———————————————————————————————————————————正文———————————————————————————————————————————————
+%----------------------------------------------
+\begin{document}
+\begin{titlepage}
+    \begin{center}
+    \includegraphics[width=0.8\textwidth]{NKU.png}\\[1cm]    
+    \textsc{\Huge \kaishu{\textbf{南\ \ \ \ \ \ 开\ \ \ \ \ \ 大\ \ \ \ \ \ 学}} }\\[0.9cm]
+    \textsc{\huge \kaishu{\textbf{网\ \ 络\ \ 空\ \ 间\ \ 安\ \ 全\ \ 学\ \ 院}}}\\[0.5cm]
+    \textsc{\Large \textbf{计算机网络实验一}}\\[0.8cm]
+    \HRule \\[0.9cm]
+    { \LARGE \bfseries Socket编程}\\[0.4cm]
+    \HRule \\[2.0cm]
+    \centering
+    \textsc{\LARGE 你们的开源亲爹\ \ 记得STAR啊！\kaishu{\ \ \ \ }}\\[0.5cm]
+    \textsc{\LARGE \kaishu{年级\ :\ 2020级}}\\[0.5cm]
+    \textsc{\LARGE \kaishu{专业\ :\ 不能告诉你们}}\\[0.5cm]
+    \textsc{\LARGE \kaishu{指导教师\ :\ 张建忠、徐敬东}}\\[0.5cm]
+    \vfill
+    {\Large \today}
+    \end{center}
+\end{titlepage}
+%-------------摘------要--------------
+\newpage
+\thispagestyle{empty}
+%----------------------------------------------------------------
+\tableofcontents
+%----------------------------------------------------------------
+\newpage
+\watermark{60}{10}{NKU}
+\setcounter{page}{1}
+%----------------------------------------------------------------
+\section{实验基本描述}
+%——————————————————————————————————————
+\begin{enumerate}
+  \item 使用流式Socket，设计一个两人聊天协议，要求聊天信息带有时间标签。请完整地说明交互消息的类型、语法、语义、时序等具体的消息处理方式。
+  \item 对聊天程序进行设计。给出模块划分说明、模块的功能和模块的流程图。
+  \item 在Windows系统下，利用C/C++对设计的程序进行实现。程序界面可以采用命令行方式，但需要给出使用方法。编写程序时，只能使用基本的Socket函数，不允许使用对socket封装后的类或架构。
+  \item 对实现的程序进行测试。
+  \item 撰写实验报告，并将实验报告和源码提交至网站。
+\end{enumerate}
+
+%----------------------------------------------------------------
+\section{实验具体工作}
+%——————————————————————————————————————
+\subsection{实现功能}
+\begin{enumerate}
+  \item 实现二人对话聊天功能；
+  \item 可以在任意时刻发送和接收消息；
+  \item TCP协议，流式套接字；
+  \item 正常的退出方式。
+\end{enumerate}
+\subsection{加分内容}
+\begin{enumerate}
+  \item 实现多人对话聊天功能；
+  \item 使用多线程编程可以连续发送、接收消息；
+  \item 通过换行符截断，可以发送空格和制表符等内容；
+  \item 支持中英文消息发送；
+  \item 支持群发；
+\end{enumerate}
+\subsection{聊天协议}
+本次实验，使用Client和Server端进行通信。在该聊天程序的两端server和client都遵循如下聊天协议，符合协议的对等性。
+\subsubsection{语法}
+报文包括三个数据段，从低位到高位，[0:6]是有一个为了安全设置的一个独特的标识符“mycNB!”。在聊天程序中，标识符可以起到识别恶意信息的作用，如果有某个用户并不是使用我们的协议而频繁发送的恶意信息，那么在消息里就找不到这个"mycNB!"标识符字段，可以将它视为恶意消息（当然也可能是某种错误信息），返回错误，连接就直接断开，保证了程序的安全性。同时，我进行了一些拓展实现了多人聊天功能。在用户加入时，我们自动给他赋予一个编号，作为他的ID，然后以这个ID唯一标识来表示用户。[6:7]这一位为用户的ID。[7:2048]表示用户实际想发送的信息。总长度为2048Bytes。
+\subsubsection{语义}
+由于为了支持中文消息的发送，我们本次所传输的报文都统一采用GBK编码方式。同时，我们通过换行符进行消息的截断。
+\subsubsection{时序}
+首先运行network1.cpp，服务器初始化并建立socket，执行bind操作后，进入listen状态。在listen状态中，server等待client的connect请求，一旦受到connect请求，就会执行accept。不过，由于是从P2P聊天扩展的，因此必须是先指定聊天人数，只有所有人都加入会议室才能开始聊天。
+而后，采取多线程的方式，可以使每一个客户端在任意时刻发送任意数量的消息，同时可以顺利接收其他人的消息。实现较为合理的聊天功能。
+%——————————————————————————————————————
+
+\section{程序设计}
+%——————————————————————————————————————
+\subsection{报文设计}
+首先，我设计了一个结构体来表示和存储id和message。然后写了一个函数来对传递的报文进行分割。具体展示如下：
+\begin{lstlisting}[frame=trbl,language={C++}]
+struct message{
+    string id;
+    string chat;
+};
+
+struct message parseMessage(char *s) {
+    message msg;
+    string str(s);
+    int pos = str.find ( "mycNB!" , 0 , 6) ;
+    msg.id = str.substr(pos + 6,1) ;
+    msg.chat = str.substr (pos + 7,str.length ()) ;
+    return msg;
+}
+\end{lstlisting}
+\subsection{服务端}
+\subsubsection{创建套接字}
+初始化 Socket DLL，根据版本信息来建立流式套接字。
+\begin{lstlisting}[frame=trbl,language={C++}]
+SOCKET sockSrv = socket(AF_INET, SOCK_STREAM, 0);
+\end{lstlisting}
+"AF\_INET"，指明协议族，使用 IPv4 的 TCP。初始化套接字类型使用 SOCK\_STREAM 类型。protocol 设置为”0”，意思是自动选择底层协议。
+\subsubsection{绑定}
+将创建好的socket与创建好的地址绑定。
+\begin{lstlisting}[frame=trbl,language={C++}]
+bind(sockSrv, (SOCKADDR*)&addrSrv, sizeof(addrSrv));
+\end{lstlisting}
+sockSrv 是调用 socket 返回的套接字文件描述符。addrSrv保存地址 (包含端口和IP地址)信息。sizeof(addrSrv)为地址类型的长度。
+\subsubsection{监听}
+使创建好的 socket 处于监听状态，变成被动连接的套接字。
+\begin{lstlisting}[frame=trbl,language={C++}]
+listen(sockSrv, 5)
+\end{lstlisting}
+sockSrv是返回的套接字文件描述符。5是在进入队列中允许的连接数目。
+\subsubsection{接收}
+使用套接字接收其他程序套接字的连接。它的连接将加入到等待接受 (accept()) 的队列中。accept() 告诉它有空闲的连接。函数返回一个新的套接字文件描述符。现在有两个套接字，原来的套接字监听设置的那个端口，新的准备发送和接收数据。
+\begin{lstlisting}[frame=trbl,language={C++}]
+sockConn[i] = accept(sockSrv, (SOCKADDR *) &addrCli[i], &nSize);
+if (sockConn[i] != INVALID_SOCKET)
+{
+  cout << "用户" << i << "进入聊天" << endl;
+  char buf[12] = "你的id是：";
+  buf[10] = 48 + i;
+  buf[11] = 0;
+  send(sockConn[i], buf, 50, 0);
+}
+\end{lstlisting}
+\subsection{客户端}
+\subsubsection{创建套接字}
+初始化 Socket DLL，根据版本信息来建立流式套接字。
+\begin{lstlisting}[frame=trbl,language={C++}]
+SOCKET sock = socket(AF_INET, SOCK_STREAM, 0);
+\end{lstlisting}
+"AF\_INET"，指明协议族，使用 IPv4 的 TCP。初始化套接字类型使用 SOCK\_STREAM 类型。protocol 设置为”0”，意思是自动选择底层协议。
+\subsubsection{连接}
+通过指定的端口连接服务器套接字。
+\begin{lstlisting}[frame=trbl,language={C++}]
+connect(sock, (SOCKADDR*)&sockAddr, sizeof(SOCKADDR))
+\end{lstlisting}
+sockaddr是保存着目的地端口和 IP 地址的数据结构 struct sockaddr。
+\subsection{Socket流程图}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.8]{1.png}
+    \label{fig:1}
+\end{figure}
+\section{程序实现}
+\subsection{多线程发送程序}
+如果将接收和发送消息都写在主线程的循环里，它们将会互相阻塞，使得这个程序每次只能发送一条消息，下一条消息只能等到收到对方消息后再发送。这是不符合正常聊天程序的，而且也很不合理。所以将接收消息和发送消息都建立一个线程，这样recv就不会阻塞了。后续接收程序同理。
+\begin{lstlisting}[frame=trbl,language={C++}]
+DWORD WINAPI Send(LPVOID thesocket) {
+    SOCKET * sock = (SOCKET*)thesocket;
+    char sendBuf[BUF_SIZE] = {};
+    char inputBuf[BUF_SIZE] = {};
+    while (1) {
+        //printf("Input a string: ");
+        cin.getline(inputBuf, 2048, '\n');
+        strcpy(sendBuf, "mycNB!");
+        strcat(sendBuf,to_string(ID).c_str());
+        strcat(sendBuf, inputBuf);
+        send(*sock, sendBuf, strlen(sendBuf), 0);
+        if (strcmp(inputBuf, "imquit") == 0)
+        {
+            SYSTEMTIME st = { 0 };
+            GetLocalTime(&st);
+            closesocket(*sock);
+            SetColor(0,12);
+            cout << "您已于" << st.wHour << "时" << st.wMinute << "分" << st.wSecond << "秒选择结束聊天了！再见哟！（//▽//）" << endl;
+            system("pause");
+            return 0;
+        }
+        if (sendBuf[0]) {
+            SetColor(1,0);
+            SYSTEMTIME st = { 0 };
+            GetLocalTime(&st);
+            cout << "消息已于" << st.wHour << "时" << st.wMinute << "分" << st.wSecond << "秒成功发送\n" ;
+            cout << "-------------------------------------------------------------" << endl;
+        }
+        memset(sendBuf, 0, BUF_SIZE);
+    }
+}
+\end{lstlisting}
+
+在这里我设计了两个缓冲区，inputBuf作为输入的缓冲区，存储我们想要发出去的消息。然后又设计一个sendBuf，这是真正要发出去的消息，我们需要把"mycNB!"这个标识符字段拼接在inputBuf之前，然后再把我们自己的ID加在后边，然后一起赋值给sendBuf后发送出去。同时，我会把发送的时间展示在控制台，设计成类似LOG的形式。\par
+如果我们输入"imquit"这六个字母，那么这就证明我要退出程序了。首先会发送本字段出去到服务端，然后输出提示信息后结束程序。服务端的处理在后续介绍。
+\subsection{多线程接收程序}
+接收与发送的程序同理。我会把接收到的时间展示在控制台，文本的设计类似于提示信息的格式。
+\begin{lstlisting}[frame=trbl,language={C++}]
+DWORD WINAPI Recv(LPVOID thesocket) {
+    char recvBuf[BUF_SIZE] = { 0 };
+    SOCKET *sock = (SOCKET*)thesocket;
+    while (1) {
+        SetColor();
+        int t = recv(*sock, recvBuf, BUF_SIZE, 0);
+        if (t > 0) {
+
+            time_t now_time = time(NULL);
+            tm *t_tm = localtime(&now_time);
+            SetColor(14,0);
+
+            message msg=parseMessage(recvBuf);
+            if (strcmp(msg.chat.data(), "imquit") == 0)
+            {
+                SetColor(0,12);
+                SYSTEMTIME st = { 0 };
+                GetLocalTime(&st);
+                closesocket(*sock);
+                cout << "您的小宝贝"<<msg.id<<"号已于" << st.wMonth <<"月"<< st.wDay << "日" << st.wHour << "时" << st.wMinute << "分" << st.wSecond << "说再见了哟！（//▽//）" << endl;
+                system("pause");
+                exit(0);}
+
+            else{
+            cout << asctime(t_tm) << "收到您的小可爱"<<msg.id<<"号发来的消息:";
+            cout<<msg.chat<<endl;
+            cout << "-------------------------------------------------------------" << endl;
+        }
+        memset(recvBuf, 0, BUF_SIZE);
+    }}
+}
+
+\end{lstlisting}
+
+这里我们先调用信息解析函数，首先是标识符的检验，检验成功再进行ID的解析，需要知道是谁发送的消息，最后把真正要发送的消息解析出来，然后进行展示。\par
+如果我们解析出来的函数是"imquit"，那么证明有一方要退出聊天了，在打印提示信息后，自己的程序也会结束运行。
+\subsection{server端的线程}
+\begin{lstlisting}[frame=trbl,language={C++}]
+DWORD WINAPI Recv(LPVOID thesocket) {
+    char recvBuf[BUF_SIZE] = {};
+    SOCKET sock = sockConn[(long long) thesocket];
+    if (sock != INVALID_SOCKET) {
+        while (1) {
+        recv(sock, recvBuf, BUF_SIZE, 0);
+        if (recvBuf[0]) {
+            message msg = parseMessage(recvBuf);
+            time_t now_time = time(NULL);
+            tm *t_tm = localtime(&now_time);
+            SetColor(14, 0);
+            if (strcmp(msg.chat.data(), "imquit") == 0) {
+                cout <<"有一位用户选择下线(*_*)，会议结束";
+                for (int i = 0; i < chatnumber; i++) {
+                    if (sock != sockConn[i]) {
+                        send(sockConn[i], recvBuf, 2048, 0);}
+                }
+                closesocket(sockConn[(long long) thesocket]);
+                closesocket(sock);
+                sockConn[(long long) thesocket]=INVALID_SOCKET;
+                system("pause");
+                exit(0);
+            } else {
+                cout << asctime(t_tm) << "收到您的小可爱"<<msg.id<<"号发来的消息:";
+                cout<<msg.chat<<endl;
+                cout << "-------------------------------------------------------------" << endl;
+                for (int i = 0; i < chatnumber; i++) {
+                    if (sock != sockConn[i]) {
+                        send(sockConn[i], recvBuf, 2048, 0);
+                    }
+                }
+            }
+            memset(recvBuf,0,BUF_SIZE);
+        }
+        else{return 0;}
+    }
+}
+    return 0;
+}
+\end{lstlisting}
+
+这里，对server端我只设计了一个线程函数，首先有一个条件判定，如果接收消息不为空，那么就进入后续程序。后续程序的主要内容就是接收从某一端发过来的消息，然后进行转发给所有不是发送方的客户端。这里我所设计的是，任何由客户端所发送的消息都会进行转发，即使是退出消息也会进行转发，到其他客户端进行解析，由客户端解析出结果再执行操作。
+同时，server端会如实显示从哪个客户端所发来的消息内容，并展示在控制台上。
+\subsection{一个控制输出颜色的程序}
+\begin{lstlisting}[frame=trbl,language={C++}]
+void SetColor(int fore=7,int back=0)
+{
+    unsigned char m_color = fore;
+    m_color += (back << 4);
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), m_color);
+    return;
+}
+\end{lstlisting}
+
+这是一个来自于网络的函数，可以设置在控制台输出的文字的颜色和背景的颜色。我直接使用，以美化程序的输出效果。在后面效果展示中，我将结合截图做具体的参数设置的说明。
+
+\subsection{主程序}
+\subsubsection{服务端}
+\begin{lstlisting}[frame=trbl,language={C++}]
+int main() {
+    SetColor();
+    WSADATA wsaData;
+    if (WSAStartup(MAKEWORD(2, 2), &wsaData) ==
+        0) //指定版本wVersionRequested=MAKEWORD(a,b)。MAKEWORD()是一个宏把两个数字组合成一个WORD，无符号的短整型
+    {
+        SetColor(0, 12);
+        cout << "初始化socket成功了亲" << endl;
+    } else {
+        SetColor(0, 12);
+        cout << "初始化socket都失败了宝贝儿，你穆哥建议还是先回家再好好学学吧！(￢_￢)" << endl;
+        return 0;
+    }
+    //创建套接字
+    SOCKET sockSrv = socket(AF_INET, SOCK_STREAM, 0);
+    sockaddr_in addrSrv;
+    memset(&addrSrv, 0, sizeof(addrSrv));  //每个字节都用0填充
+    addrSrv.sin_family = AF_INET;  //使用IPv4地址
+    addrSrv.sin_addr.s_addr = inet_addr("127.0.0.1");  //把我们本机的地址转换成网络字节二进制值序
+    addrSrv.sin_port = htons(8000);  //端口,好像是在一个区间之内就可以.//转换函数，也是转换成网络字节序
+    int z = bind(sockSrv, (SOCKADDR *) &addrSrv, sizeof(addrSrv));
+    if (z == -1) {
+        SetColor(0, 12);
+        cout << "绑定这一步都失败了宝贝儿，建议还是先回家再好好学学吧！(￢_￢)" << endl;
+        return 0;
+    } else {
+        SetColor(0, 12);
+        cout << "绑定成功了亲(^_^)" << endl;
+    }
+    //进入监听状态
+    //接收客户端请求
+    SOCKADDR addrCli[2];
+    int nSize = sizeof(SOCKADDR);
+    if (listen(sockSrv, 5) == 0) {
+        SetColor(0, 12);
+        cout << "正在监听之中哦亲(^_^)" << endl;
+        for (int i = 0; i < chatnumber; i++) {
+            //为每个客户端分配一个socket连接，将客户端的相关信息存储在addrCli中
+            sockConn[i] = accept(sockSrv, (SOCKADDR *) &addrCli[i], &nSize);
+            if (sockConn[i] != INVALID_SOCKET)
+            {
+                cout << "用户" << i << "进入聊天" << endl;
+                char buf[12] = "你的id是：";
+                buf[10] = 48 + i;
+                buf[11] = 0;
+                send(sockConn[i], buf, 50, 0);
+            }
+        }
+    } else {
+        SetColor(0, 12);
+        cout << "监听都失败了宝贝儿，你穆哥建议还是先回家再好好学学吧！(￢_￢)" << endl;
+        return 0;
+    }
+    //开启多线程
+    HANDLE hThread;
+    while (1) {
+        for (int i = 0; i < chatnumber; i++) {
+                hThread = CreateThread(NULL, 0, Recv, LPVOID(i), 0, NULL);
+                WaitForSingleObject(hThread, 2000);
+                CloseHandle(hThread);
+        }
+    }
+    closesocket(sockSrv);
+    WSACleanup();
+    return 0;
+}
+\end{lstlisting}
+\subsubsection{客户端}
+\begin{lstlisting}[frame=trbl,language={C++}]
+int main() {
+    SetColor();
+    //初始化DLL
+    WSADATA wsaData;
+    if (WSAStartup(MAKEWORD(2, 2), &wsaData) == 0)
+    {
+        SetColor(0,12);
+        cout << "初始化socket成功了亲(^_^)" << endl;
+    }
+    else {
+        SetColor(0,12);
+        cout << "初始化socket都失败了宝贝儿，你穆哥建议还是先回家再好好学学吧！(￢_￢)" << endl;
+        return 0;
+    }
+    sockaddr_in sockAddr;
+    memset(&sockAddr, 0, sizeof(sockAddr));  //每个字节都用0填充
+    sockAddr.sin_family = AF_INET;
+    sockAddr.sin_addr.s_addr = inet_addr("127.0.0.1");
+    sockAddr.sin_port = htons(8000);//好像是在一个区间之内就可以
+    SOCKET sock=  socket(AF_INET, SOCK_STREAM, 0);
+    if (connect(sock, (SOCKADDR*)&sockAddr, sizeof(SOCKADDR)) == 0)
+    {
+        SetColor(0,12);
+        cout << "亲您已成功上线了哦(^_^) 快开始和可爱的朋友们聊天吧！#(^o^)#" << endl;;
+        while (1)
+        {
+            char recvBuf[BUF_SIZE] = {};
+            //接受服务器端分配的编号
+            recv(sock, recvBuf, 50, 0);
+            if (recvBuf[0])
+            {
+                cout << recvBuf << endl;
+                //将char型编号转为int格式存储
+                ID = recvBuf[10] - 48;
+                break;
+                Sleep(30);//防止循环快速执行，占用大量资源
+            }
+        }
+        HANDLE hThread[2];
+        while(1) {
+            hThread[0] = CreateThread(NULL, 0, Send, (LPVOID) &sock, 0, NULL);
+            hThread[1] = CreateThread(NULL, 0, Recv, (LPVOID) &sock, 0, NULL);
+            WaitForMultipleObjects(2, hThread, TRUE, INFINITE);
+            CloseHandle(hThread[0]);
+            CloseHandle(hThread[1]);
+        }
+    }
+    else {
+        SetColor(0,12);
+        cout << "连接失败了宝贝儿，快查查是不是没启动服务端呢？|_(._.)_|" << endl;
+        return 0;
+    }
+    
+    closesocket(sock);
+    WSACleanup();
+    return 0;
+}
+\end{lstlisting}
+
+\section{测试以及效果展示}
+\subsection{使用方法}
+先运行network1.cpp，即为启动服务端，然后运行client.cpp，运行客户端。等成功的提示信息出现之后，就可以开始聊天了。所输入的信息以换行符结束，如果要退出程序，需要输入"imquit"这六个字母。
+\subsection{功能测试以及展示}
+这里关于输出颜色，我所设计的是，所有的提示信息都设置为红色背景，而收到的信息和时间戳都采用黄色进行输出，然后发送的时间戳颜色采用蓝色进行展示，其醒目程度是递减的。可以从下图中展示我所实现的所有功能。
+
+首先展示的是双人聊天的内容。
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.4]{2.png}
+    \label{fig:2}
+\end{figure}
+可以看到，都可以多条的发送和接收，不会遇到问题。同时server端会输出日志信息。
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.4]{3.png}
+    \label{fig:3}
+\end{figure}
+然后是退出功能，有一个用户退出了，就结束对话了。
+
+然后展示的是多人聊天的内容，我们这里以三人聊天为例，最多支持九人。
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.4]{4.png}
+    \label{fig:4}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.4]{5.png}
+    \label{fig:5}
+\end{figure}
+可以看到，多人对话的功能也是完美实现的。整体效果与双人的类似。
+以上就是成果展示。
+\section{总结与一些问题}
+初步了解了 C++ 网络编程的大体框架，对 socket 编程的流程理解掌握得更加清晰。协议的设计部分因为只是简单的双人通信，消息就只包含了分隔符和聊天消息。同时，本程序经过多次迭代。在初代版本中，由于没有使用多线程，会产生阻塞的问题，这样只能客户端先发消息，服务器收到后再发，而且每次只能发一条，不能发多条。后来将发送和接收分成两个线程执行，就没有了这种限制，两边都可以同时发送和接收。在提交之前又考虑进行扩展，只采用广播的形式，发给所有用户，这样在报文设计中还加上了用户的ID。不过退出机制与二人对话相同，并没有做更加充分的扩展。最后考虑做了一定的美化工作。
+\end{document}
