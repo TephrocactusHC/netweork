@@ -14,4 +14,7 @@
   + [ ] 3-2 [参考链接]()
   + [ ] 3-3 [参考链接]()
   + [ ] 3-4 [参考链接]()
+
+
+# 可以这么形容我的代码
 ![mycodelike](https://raw.githubusercontent.com/TephrocactusHC/mybolgimg/master/aboutmycode(1).jpg)
