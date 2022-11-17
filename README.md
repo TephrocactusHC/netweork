@@ -11,9 +11,9 @@
 + [x] lab2 [参考链接](https://tephrocactushc.github.io/post/8fe793fe.html)
 + [ ] lab3 
   + [x] 3-1 [参考链接](https://tephrocactushc.github.io/post/d2d6a337.html)
-  + [ ] 3-2 [参考链接](https://www.baidu.com)
-  + [ ] 3-3 [参考链接](https://www.baidu.com)
-  + [ ] 3-4 [参考链接](https://www.baidu.com)
+  + [ ] 3-2 [参考链接](https://tephrocactushc.github.io/post/4bdff28d.html)
+  + [ ] 3-3 [参考链接](https://tephrocactushc.github.io/post/3cd8c21b.html)
+  + [ ] 3-4 [参考链接](https://tephrocactushc.github.io/post/a2bc57b8.html)
 
 
 # 可以这么形容我的代码
