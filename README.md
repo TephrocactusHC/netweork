@@ -9,7 +9,7 @@
 # 目前进度
 + [x] lab1 [我的博客](https://tephrocactushc.github.io/post/16eec244.html)
 + [x] lab2 [我的博客](https://tephrocactushc.github.io/post/8fe793fe.html)
-+ [ ] lab3 
++ [ ] lab3 [我的博客](https://tephrocactushc.github.io/post/f8e0a368.html)
   + [x] 3-1 [我的博客](https://tephrocactushc.github.io/post/d2d6a337.html)
   + [ ] 3-2 [我的博客](https://tephrocactushc.github.io/post/4bdff28d.html)
   + [ ] 3-3 [我的博客](https://tephrocactushc.github.io/post/3cd8c21b.html)
