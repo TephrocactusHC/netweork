@@ -104,6 +104,9 @@ struct message
             return false;
         return true;
     }
+    void output() {
+        cout << "checksum=" << this->checksum << ", len=" << this->len << endl;
+    }
 };
 
 SOCKADDR_IN serveraddr,clientaddr;
@@ -141,7 +144,7 @@ void sendmessage(message msg) {
     msg.setchecksum();
     if(judgeRand()==1){
     if (sendto(Client, (char*)&msg, BUFFER, 0, (SOCKADDR*)&serveraddr, sizeof(SOCKADDR)) == (SOCKET_ERROR)) {
-        SetColor(0,12);
+        SetColor(12,0);
         cout << "发送错误了!!" << endl;
     }}
 }
@@ -160,19 +163,19 @@ void Start()
     if (err != 0)
     {
         //找不到 winsock.dll
-        SetColor(0,12);
+        SetColor(12,0);
         cout << "初始化套接字错误了: " << err << endl;
         return;
     }
     if (LOBYTE(wsaData.wVersion) != 2 || HIBYTE(wsaData.wVersion) != 2)
     {
-        SetColor(0,12);
+        SetColor(12,0);
         cout << "Winsock.dll版本错误" << endl;
         WSACleanup();
     }
     else
     {
-        SetColor(0,12);
+        SetColor(12,0);
         cout << "套接字创建成功" << endl;
     }
     Client = socket(AF_INET, SOCK_DGRAM, 0);
@@ -185,14 +188,14 @@ void Start()
     err = bind(Client, (SOCKADDR*)&clientaddr, sizeof(SOCKADDR));
     if (err) {
         err = GetLastError();
-        SetColor(0,12);
+        SetColor(12,0);
         cout << "绑定端口" << CLIENT_PORT << "出现错误：" << err << endl;
         WSACleanup();
         return;
     }
     else
     {
-        SetColor(0,12);
+        SetColor(12,0);
         cout << "成功创建客户端！" << endl;
     }
 }
@@ -201,7 +204,7 @@ int beginconnect()
 {
     int iMode = 1; //1：非阻塞，0：阻塞
     ioctlsocket(Client, FIONBIO, (u_long FAR*) & iMode);//非阻塞设置
-    SetColor(0,12);
+    SetColor(12,0);
     cout << "开始连接！发送第一次握手！" << endl;
     message recvMsg, sendMsg;
     sendMsg.setSYN();
@@ -218,7 +221,7 @@ int beginconnect()
         {
             end = clock();
             if (end - start > 50) {
-                SetColor(0,12);
+                SetColor(12,0);
                 cout << "连接超时,请确认网络通畅和服务端启动无误后再运行本程序！" << endl;
                 sendmessage(sendMsg);
                 break;
@@ -242,7 +245,7 @@ int beginconnect()
 }
 
 int openFile() {
-    SetColor(0,10);
+    SetColor(10,0);
     cout << "请输入要发送的文件名：";
     memset(filepath, 0, 20);
     string temp;
@@ -262,7 +265,7 @@ int openFile() {
         return 1;
     }
         else{
-            SetColor(0,12);
+            SetColor(12,0);
             cout<<"文件不存在，请重新输入您要传输的文件名！"<<endl;
             return openFile();
         }
@@ -280,7 +283,7 @@ int sendFileName() {
     SetColor(0,6);
     cout << "发送所要传输的文件名" << endl;
     if (waitSend(msg, 0) == 0) {
-        SetColor(0,12);
+        SetColor(12,0);
         cout << "发出文件名失败" << endl;
         return 0;
     }
@@ -310,7 +313,7 @@ int sendmessages() {
         SetColor(14,0);
         cout << "发送seq为" << seq << "的数据包" << endl;
         if (waitSend(msg, seq) == 0) {
-            SetColor(0,12);
+            SetColor(12,0);
             cout << "发送seq为" << seq << "的数据包失败！！！" << endl << endl;
             cout << "重发失败，请确认网络通畅以及服务端启动后，重新启动客户端并重新发送文件！再见！" << endl;
             return 0;
@@ -338,7 +341,7 @@ int closeconnect() {  // 断开连接
     while (true) {
         Sleep(100);
         if (count >= 50) {
-            SetColor(0,12);
+            SetColor(12,0);
             cout << "等待时间太长，退出连接" << endl;
             return closeconnect();
         }
@@ -351,7 +354,7 @@ int closeconnect() {  // 断开连接
         }
         count++;
     }
-    SetColor(0,12);
+    SetColor(12,0);
     cout << "接收到确认连接，断开连接成功" << endl << endl;
     return 0;
 }
@@ -360,6 +363,7 @@ int waitSend(message sendMsg, int seq)
     message recvMsg;
     sendMsg.seq = seq;
     sendmessage(sendMsg);
+    sendMsg.output();
     int iMode = 1; //1：非阻塞，0：阻塞
     ioctlsocket(Client, FIONBIO, (u_long FAR*) & iMode);//非阻塞设置
     int count = 0;
@@ -368,14 +372,14 @@ int waitSend(message sendMsg, int seq)
     while (1) {
         end = clock();
         if (end - start > 50) {
-            SetColor(0,12);
+            SetColor(12,0);
             cout << "应答超时，重新发送数据包" << endl;
             sendmessage(sendMsg);
             count++;
-            SetColor(0,12);
+            SetColor(12,0);
             cout<<"尝试重新发送第"<<count<<"次，最多10次"<<endl;
             if(count>=10){
-                SetColor(0,12);
+                SetColor(12,0);
                 break;
             }
             start = clock();
@@ -387,6 +391,7 @@ int waitSend(message sendMsg, int seq)
         if (recvMsg.isACK() && recvMsg.ack == seq) {
             SetColor(14,0);
             cout << "收到服务器发来的ack正确的确认数据包！" << endl;
+            cout<<"checksum="<<recvMsg.corrupt()<<", len="<<recvMsg.len<<endl;
             cout << endl;
             return 1;
         }
@@ -399,7 +404,7 @@ int main()
     SetColor();
     // 初始化套接字
     Start();
-    SetColor(0,12);
+    SetColor(12,0);
     beginconnect();
     sendFileName();
     closesocket(Client);
