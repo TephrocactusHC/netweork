@@ -14,6 +14,8 @@ using namespace std;
 void SetColor(int fore = 7, int back = 0) {
     unsigned char m_color = fore;
     m_color += (back << 4);
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), m_color);
+    return;
 }
 struct message
 {
@@ -144,13 +146,13 @@ void Start()
     err = WSAStartup(version, &wsaData);
     if (err != 0) {
         //找不到 winsock.dll
-        SetColor(14,0);
+        SetColor(0,12);
         cout << "初始化套接字错误: " << err << endl;
         return;
     }
     if (LOBYTE(wsaData.wVersion) != 2 || HIBYTE(wsaData.wVersion) != 2)
     {
-        SetColor(14,0);
+        SetColor(0,12);
         cout << "Winsock.dll的版本不对啊宝贝儿" << endl;
         WSACleanup();
         return;
@@ -169,21 +171,21 @@ void Start()
     err = bind(Server, (SOCKADDR*)&serveraddr, sizeof(SOCKADDR));
     if (err) {
         err = GetLastError();
-        SetColor(14,0);
+        SetColor(0,12);
         cout << "绑定端口" << SERVER_PORT << "出现错误：" << err << endl;
         WSACleanup();
         return;
     }
     else
     {
-        SetColor(14,0);
+        SetColor(0,12);
         cout << "成功创建服务器！" << endl;
     }
 }
 
 int WaitConnect()
 {
-    SetColor(14,0);
+    SetColor(0,12);
     cout << "服务器等待连接" << endl;
     message recvMsg, sendMsg;
     while (true)
@@ -191,7 +193,7 @@ int WaitConnect()
         recvMsg = recvmessage();
         if (recvMsg.isSYN())
         {
-            SetColor(14,0);
+            SetColor(0,12);
             cout << "收到第一次握手成功！" << endl;
             break;
         }
@@ -200,14 +202,14 @@ int WaitConnect()
     sendMsg.setACK();
     sendMsg.ack = recvMsg.seq + 1;   // 将要发送确认包的ack设为收到包的seq+1
     sendMsg.setSYN();
-    SetColor(14,0);
+    SetColor(0,12);
     cout << "发送第二次握手信息！" << endl;
     sendmessage(sendMsg);
     int count = 0;
     while (true) {
         Sleep(100);
         if (count >= 50) {
-            SetColor(14,0);
+            SetColor(0,12);
             cout << "等待时间太长，退出连接" << endl;
             return WaitConnect();
         }
@@ -231,7 +233,7 @@ int closeconnect(message msg){
     sendMsg.setACK();
     sendMsg.ack = msg.seq + 1;
     sendmessage(sendMsg);
-    SetColor(14,0);
+    SetColor(0,12);
     cout<<"已经收到客户端发过来的挥手请求，并且发送了第二次挥手，服务器将结束运行！再见！"<<endl;
     return 0;
 }
@@ -243,6 +245,7 @@ int getFileName() {
     while (true) {
         msg = recvmessage();
         if (msg.isFIN()) {
+            SetColor(0,12);
             cout << "客户端准备断开连接！进入挥手模式！" << endl;
             closeconnect(msg);
             break;

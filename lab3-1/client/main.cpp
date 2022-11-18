@@ -19,6 +19,8 @@ int judgeRand(){
 void SetColor(int fore = 7, int back = 0) {
     unsigned char m_color = fore;
     m_color += (back << 4);
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), m_color);
+    return;
 }
 struct message
 {
@@ -170,7 +172,7 @@ void Start()
     }
     else
     {
-        SetColor(14,0);
+        SetColor(0,12);
         cout << "套接字创建成功" << endl;
     }
     Client = socket(AF_INET, SOCK_DGRAM, 0);
@@ -183,14 +185,14 @@ void Start()
     err = bind(Client, (SOCKADDR*)&clientaddr, sizeof(SOCKADDR));
     if (err) {
         err = GetLastError();
-        SetColor(14,0);
+        SetColor(0,12);
         cout << "绑定端口" << CLIENT_PORT << "出现错误：" << err << endl;
         WSACleanup();
         return;
     }
     else
     {
-        SetColor(14,0);
+        SetColor(0,12);
         cout << "成功创建客户端！" << endl;
     }
 }
