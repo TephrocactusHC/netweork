@@ -9,6 +9,7 @@ $\color{red}{NKU同学参考的话请给STAR}$
 不要抄袭我的代码。这都是我智慧的残渣！关于如何完成实验，我在我的博客中有着较为详细的记录，希望你们在看后可以自己写出来，而不是抄袭我的代码。当然，尤其拒绝20级同级的人抄我的代码。
 
 # 目前进度
+发现了一些3-1 3-2中的巨大问题，暂时把cpp删除。修改后会重新上传最新版。
 🚧施工中🚧
 + [x] lab1 [我的博客](https://tephrocactushc.github.io/post/16eec244.html)
 + [x] lab2 [我的博客](https://tephrocactushc.github.io/post/8fe793fe.html)
