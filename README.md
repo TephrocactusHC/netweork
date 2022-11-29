@@ -28,18 +28,6 @@ $\color{red}{NKU同学参考的话请给STAR}$
 记录如下:
 - [18孙一丁](https://github.com/Emanual20/Computer-Network-lab3)
 - [18文静静](https://github.com/king-wk/Compute_Network)
-- [18於一帆](https://github.com/Rainefly/Computer-Network)
-- [18吴昌昊](https://github.com/TequilaWch/Net-ReliableUdpConnect)
-- [18苑华莹](https://github.com/yhy-2000/NetworkHomework)
-- [18不知名](https://github.com/nkuwhjhhh/nku-computer-network)
-- [18不知名](https://github.com/jokergss/network)
-- [18麦隽韵](https://github.com/VitalC-3026/Network)
-- [18李毅](https://github.com/Joshua-li-yi/network_lab)
-- [18李彦欣](https://github.com/Liyx55/computer-network)
-- [18刘佳浩](https://github.com/MAVERICKdesu/SOCKET_FILE_TRANSFER)
-- [19朱浩泽](https://github.com/AnthonyHaozeZhu/Computer-networks)
-- [19陈豪斌](https://github.com/hiroki-chen/Computer-Network)
-- [19丁彦添](https://github.com/tinsir888/computer-network-assignment)
 **最后是一些礼仪**，如果你确实大规模借鉴了包括我在内的任何一个人的代码，请`STAR`。
 
 # 本课复习资料
