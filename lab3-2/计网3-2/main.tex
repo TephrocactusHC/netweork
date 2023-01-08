@@ -1,0 +1,635 @@
+% -*- coding: utf-8 -*-
+%-------------------------designed by zcf--------------
+\documentclass[UTF8,a4paper,10pt]{ctexart}
+\usepackage[left=3.17cm, right=3.17cm, top=2.74cm, bottom=2.74cm]{geometry}
+\usepackage{amsmath}
+\usepackage{graphicx,subfig}
+\usepackage{float}
+\usepackage{cite}
+\usepackage{caption}
+\usepackage{enumerate}
+\usepackage{booktabs} %表格
+\usepackage{multirow}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}  %表格强制换行
+%-------------------------字体设置--------------
+% \usepackage{times} 
+\usepackage{ctex}
+\setCJKmainfont[ItalicFont=Noto Sans CJK SC Bold, BoldFont=Noto Serif CJK SC Black]{Noto Serif CJK SC}
+\newcommand{\yihao}{\fontsize{26pt}{36pt}\selectfont}           % 一号, 1.4 倍行距
+\newcommand{\erhao}{\fontsize{22pt}{28pt}\selectfont}          % 二号, 1.25倍行距
+\newcommand{\xiaoer}{\fontsize{18pt}{18pt}\selectfont}          % 小二, 单倍行距
+\newcommand{\sanhao}{\fontsize{16pt}{24pt}\selectfont}  %三号字
+\newcommand{\xiaosan}{\fontsize{15pt}{22pt}\selectfont}        % 小三, 1.5倍行距
+\newcommand{\sihao}{\fontsize{14pt}{21pt}\selectfont}            % 四号, 1.5 倍行距
+\newcommand{\banxiaosi}{\fontsize{13pt}{19.5pt}\selectfont}    % 半小四, 1.5倍行距
+\newcommand{\xiaosi}{\fontsize{12pt}{18pt}\selectfont}            % 小四, 1.5倍行距
+\newcommand{\dawuhao}{\fontsize{11pt}{11pt}\selectfont}       % 大五号, 单倍行距
+\newcommand{\wuhao}{\fontsize{10.5pt}{15.75pt}\selectfont}    % 五号, 单倍行距
+%-------------------------章节名----------------
+\usepackage{ctexcap} 
+\CTEXsetup[name={,、},number={ \chinese{section}}]{section}
+\CTEXsetup[name={（,）},number={\chinese{subsection}}]{subsection}
+\CTEXsetup[name={,.},number={\arabic{subsubsection}}]{subsubsection}
+%-------------------------页眉页脚--------------
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{\kaishu \leftmark}
+% \chead{}
+\rhead{\kaishu 计算机网络第一次实验}%加粗\bfseries 
+\lfoot{}
+\cfoot{\thepage}
+\rfoot{}
+\renewcommand{\headrulewidth}{0.1pt}  
+\renewcommand{\footrulewidth}{0pt}%去掉横线
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}%标题横线
+\newcommand{\HRulegrossa}{\rule{\linewidth}{1.2mm}}
+%-----------------------伪代码------------------
+\usepackage{algorithm}  
+\usepackage{algorithmicx}  
+\usepackage{algpseudocode}  
+\floatname{algorithm}{Algorithm}  
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}  
+\renewcommand{\algorithmicensure}{\textbf{Output:}} 
+\usepackage{lipsum}  
+\makeatletter
+\newenvironment{breakablealgorithm}
+  {% \begin{breakablealgorithm}
+  \begin{center}
+     \refstepcounter{algorithm}% New algorithm
+     \hrule height.8pt depth0pt \kern2pt% \@fs@pre for \@fs@ruled
+     \renewcommand{\caption}[2][\relax]{% Make a new \caption
+      {\raggedright\textbf{\ALG@name~\thealgorithm} ##2\par}%
+      \ifx\relax##1\relax % #1 is \relax
+         \addcontentsline{loa}{algorithm}{\protect\numberline{\thealgorithm}##2}%
+      \else % #1 is not \relax
+         \addcontentsline{loa}{algorithm}{\protect\numberline{\thealgorithm}##1}%
+      \fi
+      \kern2pt\hrule\kern2pt
+     }
+  }{% \end{breakablealgorithm}
+     \kern2pt\hrule\relax% \@fs@post for \@fs@ruled
+  \end{center}
+  }
+\makeatother
+%------------------------代码-------------------
+\usepackage{xcolor} 
+\usepackage{listings} 
+\lstset{ 
+breaklines,%自动换行
+basicstyle=\small,
+escapeinside=``,
+keywordstyle=\color{ blue!70} \bfseries,
+commentstyle=\color{red!50!green!50!blue!50},% 
+stringstyle=\ttfamily,% 
+extendedchars=false,% 
+linewidth=\textwidth,% 
+numbers=left,% 
+numberstyle=\tiny \color{blue!50},% 
+frame=trbl% 
+rulesepcolor= \color{ red!20!green!20!blue!20} 
+}
+%------------超链接----------
+\usepackage[colorlinks,linkcolor=black,anchorcolor=blue]{hyperref}
+%------------------------TODO-------------------
+\usepackage{enumitem,amssymb}
+\newlist{todolist}{itemize}{2}
+\setlist[todolist]{label=$\square$}
+% for check symbol 
+\usepackage{pifont}
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+\newcommand{\done}{\rlap{$\square$}{\raisebox{2pt}{\large\hspace{1pt}\cmark}}\hspace{-2.5pt}}
+\newcommand{\wontfix}{\rlap{$\square$}{\large\hspace{1pt}\xmark}}
+%------------------------水印-------------------
+\usepackage{tikz}
+\usepackage{xcolor}
+\usepackage{eso-pic}
+
+\newcommand{\watermark}[3]{\AddToShipoutPictureBG{
+\parbox[b][\paperheight]{\paperwidth}{
+\vfill%
+\centering%
+\tikz[remember picture, overlay]%
+  \node [rotate = #1, scale = #2] at (current page.center)%
+    {\textcolor{gray!80!cyan!30!magenta!30}{#3}};
+\vfill}}}
+
+
+
+%———————————————————————————————————————————正文———————————————————————————————————————————————
+%----------------------------------------------
+\begin{document}
+\begin{titlepage}
+    \begin{center}
+    \includegraphics[width=0.8\textwidth]{NKU.png}\\[1cm]    
+    \textsc{\Huge \kaishu{\textbf{南\ \ \ \ \ \ 开\ \ \ \ \ \ 大\ \ \ \ \ \ 学}} }\\[0.9cm]
+    \textsc{\huge \kaishu{\textbf{网\ \ 络\ \ 空\ \ 间\ \ 安\ \ 全\ \ 学\ \ 院}}}\\[0.5cm]
+    \textsc{\Large \textbf{计算机网络实验3-2}}\\[0.8cm]
+    \HRule \\[0.9cm]
+    { \LARGE \bfseries 基于UDP服务设计可靠传输协议并编程实现}\\[0.4cm]
+    \HRule \\[2.0cm]
+    \centering
+    \textsc{\LARGE \kaishu{马世骐\ \ 6016252 }}\\[0.5cm]
+    \textsc{\LARGE \kaishu{年级\ :\ 2020级}}\\[0.5cm]
+    \textsc{\LARGE \kaishu{专业\ :\ 经济伯苓班}}\\[0.5cm]
+    \textsc{\LARGE \kaishu{指导教师\ :\ 张建忠、徐敬东}}\\[0.5cm]
+    \vfill
+    {\Large \today}
+    \end{center}
+\end{titlepage}
+%-------------摘------要--------------
+\newpage
+\thispagestyle{empty}
+%----------------------------------------------------------------
+\tableofcontents
+%----------------------------------------------------------------
+\newpage
+\watermark{60}{10}{NKU}
+\setcounter{page}{1}
+%----------------------------------------------------------------
+\section{实验基本描述}
+%——————————————————————————————————————
+在实验3-1的基础上实现了滑动窗口机制。
+
+%----------------------------------------------------------------
+\section{实验具体工作}
+%——————————————————————————————————————
+\begin{enumerate}
+  \item 在3-1的基础上，增加滑动窗口功能
+  \item 采用SR协议
+  \item 使用多线程编程
+  \item 可以扫描文件夹下的文件，为文件传输和验证提供方便
+\end{enumerate}
+\subsection{协议设计}
+\subsubsection{报文格式}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.6]{计网1.png}
+    \label{fig:1}
+\end{figure}
+\begin{lstlisting}[title=报文格式,frame=trbl,language={C++}]
+struct message
+{
+#pragma pack(1)
+    u_long flag{};
+    u_short seq{};//序列号
+    u_short ack{};//确认号
+    u_long len{};//数据部分长度
+    u_long num{}; //发送的消息包含几个包
+    u_short checksum{};//校验和
+    char data[8192]{};//数据长度
+#pragma pack()
+}
+\end{lstlisting}
+flags为我们所设计的伪首部，其中包含了SYN、FIN、START、END位，分别表示包的基本信息，还有一个EXIST位，表示包不为空(由于我们使用非阻塞模式，需要有此设置)。这五位，分别由flags的第一位、第二位、第四位、第八位、第十六位表示，其他位由0补齐。\par
+我们的DATA为所传输的图片或文字的部分，本次实验为了减少调试和文件传输的时间，将大小调整为8192。
+\subsubsection{状态转换图}
+\textbf{本次实验采用SR机制}，状态图大致如下所示（GBN和SR机制的发送端是相同的，区别仅仅在于接收端的窗口大小，因此这里的状态图是GBN的，但是我所实现的是SR协议）：
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.6]{计网3.png}
+    \label{fig:3}
+\end{figure}
+\textbf{SR机制的接收端如下所示}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.6]{补充.png}
+    \label{fig:3}
+\end{figure}
+\textbf{本次实验采用SR机制}，因此本程序的文件传输流程示意如下，后文将具体介绍：
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.6]{计网4.png}
+    \caption{发送流程}
+    \label{fig:4}
+\end{figure}
+
+\subsubsection{建立连接}
+\textbf{与第一次实验相同。}建立连接的过程，仿照了三次握手的过程，客户端发送带有标识SYN的消息x，接收到对方对消息x的确认消息ACK。由客户端发出第一次握手的请求，然后服务器发回第二次握手，唯一的区别是我这里客户端发出的第三次握手并不会真的被服务器收到，原因很简单，因为我们是单向传输的。
+下面是大致的流程图：
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.6]{计网2.png}
+    \label{fig:2}
+\end{figure}
+具体代码实现如下所示：
+\begin{lstlisting}[title=客户端,frame=trbl,language={C++}]
+int beginconnect()
+{
+    SetColor(0,12);
+    cout << "开始连接！发送第一次握手！" << endl;
+    message recvMsg, sendMsg;
+    sendMsg.setSYN();
+    sendMsg.seq = 88;
+    sendmessage(sendMsg);
+    int start = clock();
+    int end;
+    while (true)
+    {
+        recvMsg = recvmessage();
+        if (!recvMsg.isEXT())
+        {
+            end = clock();
+            if (end - start > 2000) {
+                SetColor(0,12);
+                cout << "连接超时,请确认网络通畅和服务端启动无误后再运行本程序！" << endl;
+                break;
+            }
+            continue;
+        }
+        if (recvMsg.isACK() && recvMsg.isSYN()&& recvMsg.ack == sendMsg.seq + 1) {
+            SetColor(14,0);
+            cout << "收到第二次握手!" << endl;
+            break;
+        }
+    }
+    sendMsg.setACK();
+    sendMsg.seq = 89;
+    sendMsg.ack = recvMsg.seq + 1;
+    SetColor(14,0);
+    cout << "发送第三次握手的数据包" << endl;
+    sendmessage(sendMsg);
+    return 0;
+}
+\end{lstlisting}
+
+\begin{lstlisting}[title=服务器,frame=trbl,language={C++}]
+int WaitConnect()
+{
+    SetColor(14,0);
+    cout << "服务器等待连接" << endl;
+    message recvMsg, sendMsg;
+    while (true)
+    {
+        recvMsg = recvmessage();
+        if (recvMsg.isSYN())
+        {
+            SetColor(14,0);
+            cout << "收到第一次握手成功！" << endl;
+            break;
+        }
+    }
+    sendMsg.setSYN();
+    sendMsg.setACK();
+    sendMsg.ack = recvMsg.seq + 1;   // 将要发送确认包的ack设为收到包的seq+1
+    sendMsg.setSYN();
+    SetColor(14,0);
+    cout << "发送第二次握手信息！" << endl;
+    sendmessage(sendMsg);
+    SetColor(14,0);
+    cout << "接收到确认连接，连接成功" << endl;
+    int iMode = 0; //1：非阻塞，0：阻塞
+    ioctlsocket(Server, FIONBIO, (u_long FAR*) & iMode);//非阻塞设置
+    return 0;
+}
+\end{lstlisting}
+\subsubsection{断开连接}
+\textbf{与第一次实验相同。}断开连接采用的是两次挥手，由客户端开始发出第一次挥手，服务器收到挥手后返回第二次挥手，然后双方程序结束运行。
+
+具体代码实现如下所示：
+\begin{lstlisting}[title=客户端,frame=trbl,language={C++}]
+int closeconnect() {  // 断开连接
+    message recvMsg, sendMsg;
+    sendMsg.setFIN();
+    sendMsg.seq = 65534;//此处是u_short的表示范围的最大值-1，而我们收到的将会再加一，那么已经到了u_short的最大值了，就自然结束了。
+    sendmessage(sendMsg);
+    cout << "发送出去第一次挥手！" << endl;
+    int count = 0;
+    while (true) {
+        Sleep(100);
+        if (count >= 50) {
+            SetColor(0,12);
+            cout << "等待时间太长，退出连接" << endl;
+            return closeconnect();
+        }
+        recvMsg = recvmessage();
+        if (!recvMsg.isEXT()) {
+            continue;
+        }
+        if (recvMsg.isACK() && recvMsg.ack == sendMsg.seq + 1) {
+            break;
+        }
+        count++;
+    }
+    SetColor(0,12);
+    cout << "接收到确认连接，断开连接成功" << endl << endl;
+    return 0;
+}
+\end{lstlisting}
+客户端此处的第一次挥手有一个小的设计是把seq设置为u\_short的表示范围的最大值-1，而我们收到的将会再加一，那么已经到了u\_short的最大值了，就自然结束了。
+\begin{lstlisting}[title=服务器,frame=trbl,language={C++}]
+int closeconnect(message msg){
+    message sendMsg;
+    sendMsg.setACK();
+    sendMsg.ack = msg.seq + 1;
+    sendmessage(sendMsg);
+    SetColor(14,0);
+    cout<<"已经收到客户端发过来的挥手请求，并且发送了第二次挥手，服务器将结束运行！再见！"<<endl;
+    return 0;
+}
+\end{lstlisting}
+\subsubsection{差错检测}
+\textbf{与第一次实验相同。}主要是校验和计算的函数，这个函数修改自老师课上所给出的方法，也就是说，如果校验和为0的话，我们的包就是正确的。具体代码如下：
+\begin{lstlisting}[title=校验和计算,frame=trbl,language={C++}]
+void setchecksum(){
+    int sum = 0;
+    u_char* temp = (u_char*)this;
+    for (int i = 0; i < 8; i++)
+    {
+        sum += (temp[i<<1] << 8) + temp[i<<1|1];
+        while (sum > 0xffff)
+        {
+            int t = sum >> 16;  
+            sum += t;
+        }
+    }
+    checksum = ~(u_short)sum;  
+}
+\end{lstlisting}
+然后以此为基础进行差错检验
+\begin{lstlisting}[title=差错检验,frame=trbl,language={C++}]
+bool corrupt(){
+        // 包是否损坏
+        int sum = 0;
+        u_char* temp = (u_char*)this;
+        for (int i = 0; i < 8; i++)
+        {
+            sum += (temp[i<<1] << 8) + temp[i<<1|1];
+            while (sum >= 0x10000)
+            {//溢出
+                int t = sum >> 16;//计算方法与设置校验和相同
+                sum += t;
+            }
+        }
+        //把计算出来的校验和和报文中该字段的值相加，如果等于0xffff，则校验成功
+        if (checksum + (u_short)sum == 65535)
+            return false;
+        return true;
+    }
+\end{lstlisting}
+\subsection{滑动窗口}
+\subsubsection{服务器}
+窗口下界为 sendbase，初始为 0，代表数据 buffer[0:sendbase-1] 全部传输完毕，且收到了对应的 ACK 数据包（状态为 1）。接下来接收到 ack 为 sendbase 的数据包，滑动窗口才能前移。
+窗口上界为 sendtop，初始为窗口大小-1。
+服务器发送窗口范围内 buffer[sendbase:sendtop] 所有未发送的包（状态为 0），发送后将这些包状态置为-1，接收到对应的 ack 才将它们置为 1。
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.6]{计网5.png}
+    \label{fig:2}
+\end{figure}
+\subsubsection{客户端}
+窗口下界为 recvbase，初始为 0，代表数据 buffer[0:recvbase-1] 全部接收完毕，且发送了对应的 ACK 数据包。接下来期望接收到 seq 为 recvbase 的数据包，滑动窗口才能前移。
+窗口上界为 recvtop，初始为窗口大小-1。
+可以接收序号为 [0:recvtop] 的数据包。如果接收数据包是已经接收完毕的（状态为 1），返回对应 ACK 包。如果接收到的是滑动窗口内未接收的数据包（状态为 0），返回对应 ACK 包并将状态置为 1。接收到大于滑动窗口上界的包不予处理。
+
+\subsubsection{多线程编程}
+首先我们需要打开文件，这一步做出了一定的修改，先把文件整个读到内存之中，然后再复制到缓冲区之中。具体代码如下所示：
+\begin{lstlisting}[title=打开文件,frame=trbl,language={C++}]
+int openFile() {
+    SetColor(0,10);
+    cout << "请输入要发送的文件名：";
+    memset(filepath, 0, 20);
+    string temp;
+    cin >> temp;
+    if (temp == "FINISH") {
+        return closeconnect();
+    } else {
+        strcpy(filepath, temp.c_str());
+        in.open(filepath, ifstream::in | ios::binary);// 以二进制方式打开文件
+        in.seekg(0, std::ios_base::end);  // 将文件流指针定位到流的末尾
+        filelen = in.tellg();
+        messagenum = filelen / 8192 + 1;
+        SetColor(0,6);
+        lastlen = filelen - (messagenum - 1) * 8192;
+        cout << "文件大小为" << filelen << "Bytes,总共有" << messagenum << "个数据包" << endl;
+        in.seekg(0, std::ios_base::beg);  // 将文件流指针定位到流的开始
+        int index = 0, len = 0;
+        // 将文件读入缓冲区
+        char t = in.get();
+        while (in) {
+            buffer[index][len] = t;
+            len++;
+            if (len == 8192) {
+                len = 0;
+                index++;
+            }
+            t = in.get();
+        }
+        in.close();
+        return 1;
+    }
+    else{
+        SetColor(12,0);
+        cout<<"文件不存在，请重新输入您要传输的文件名！"<<endl;
+        return openFile();
+    }
+}
+}
+\end{lstlisting}
+\textbf{然后使用多线程编程方式}，有发送和接收线程。同时，实现选择重传，每个要发送的数据包需要一个单独的线程，用于判断数据包是否丢失或超时。
+\begin{lstlisting}[title=发送线程函数,frame=trbl,language={C++}]
+int sendthread() {
+    int sendcase = 0;
+    message msg;
+    while (!sendcase) {
+        for (int i = sendbase; i <= sendtop; i++) {
+            if (state[i] == 0) {
+                state[i] = -1;
+                msg.seq = i;
+                sendOneMsg(msg,i);
+                sendcase=((i == (messagenum-1))?(sendcase+1):sendcase);
+            }
+        }
+    }
+    ExitThread(TRUE);
+}
+\end{lstlisting}
+接下来是接收线程：
+\begin{lstlisting}
+int recvthread() {
+    while(1) {
+        message msg = recvmessage();
+        while (!msg.isEXT()) {
+            continue;
+        }
+        if (msg.isACK()) {
+            time_t now_time = time(NULL);
+            tm *t_tm = localtime(&now_time);
+            cout << "收到ack为" << msg.ack << "的数据包" << endl;
+            cout << asctime(t_tm) << endl;
+            state[msg.ack] = 1;
+            cout << endl;
+            if (msg.ack == messagenum - 1) {
+                ExitThread(TRUE);
+            }
+        }
+    }
+}
+\end{lstlisting}
+\subsubsection{超时重传}
+关于超时机制，仍然采取了RDT3.0的设计，对于窗口内的任何单个包，我们都要设置一个计时器，如果这个包丢包、传输错误、超时等任何原因导致一旦超过我们设计的限定时间，就要进行重发机制。并且会在屏幕输出“触发重传机制”。
+\begin{lstlisting}[title=超时重传,frame=trbl,language={C++}]
+int sendOneMsg(message msg,int num) {
+    if (num != messagenum - 1) {
+        memcpy(msg.data, buffer[num], 8192);
+        msg.len = 8192;
+    }
+    else {
+        memcpy(msg.data, buffer[num], lastlen);
+        msg.len = lastlen;
+    }
+    msg.seq = num;
+    sendmessage(msg);
+    cout<<"len="<<msg.len<<", checksum="<<msg.checksum<<", flag="<<msg.flag<<", seq="<<msg.seq<<endl;
+    clock_t start = clock();
+    while (1) {
+        clock_t end = clock();
+        if (end - start > TIMEOUT) {
+            cout << "触发重传机制" << endl;
+            sendmessage(msg);
+            start = clock();
+        }
+        if (state[num] == 1) {
+            return 1;
+        }
+    }
+}
+\end{lstlisting}
+\subsubsection{文件传输流程}
+大致内容是在开启接收和发送的线程之后，执行发送和接收的功能。其中，关于窗口滑动的功能，写了一个选择语句，即当窗口上沿已经到了最后一个数据包的时候，就不再增长了。
+\begin{lstlisting}[title=客户端发送文件,frame=trbl,language={C++}]
+int sendcase = 0;
+timestart = clock();
+// 创建一个接收线程
+thread recvThr(recvthread);
+recvThr.detach();
+// 创建一个发送线程
+cout << "开始发送文件" << endl;
+thread sendThr(sendthread);
+sendThr.detach();
+sendtop=((messagenum < windowSize)?(messagenum):sendtop);
+while (!sendcase) {
+    while (state[sendbase] == 1) {
+        // 收到当前滑动窗口底的数据包ack
+        cout << "滑动窗口前移一位" << endl;
+        if (sendbase == messagenum - 1) {
+            sendcase += 1;
+            break;
+        }
+        sendbase++;
+        sendtop=((messagenum-sendtop-1)?(sendtop+1):sendtop);
+        cout << "现在窗口底部是:" << sendbase << "，窗口顶部是:" << sendtop << endl;
+    }
+}
+isFINISH = true;
+cout << "成功发送文件！" << endl;
+timeend = clock();
+double endtime = (double)(timeend - timestart) / CLOCKS_PER_SEC;
+cout << "传输总时间" << endtime << "s" << endl;
+cout << "吞吐率" << (double)(messagenum) * (BUFFER << 3) / endtime / 8192  << "kbps" << endl;
+sendbase = 0;
+sendtop = windowSize - 1;
+sendFINISH();//由于多线程问题一直没有解决，因此必须强制杀死所有线程然后强制退出。不能实现多文件发送机制。具体解释见server端的注释
+\end{lstlisting}
+
+\begin{lstlisting}[title=服务器接收文件,frame=trbl,language={C++}]
+int recvMsg() {
+    recvbase = 0;
+    recvtop =((messagenum <= windowSize)?(messagenum - 1):( windowSize - 1));
+    cout << "正在接收文件" << endl;
+    thread recvThr(recvThread);
+    recvThr.detach();
+    while (recving) {
+        while (state[recvbase] == 1) {
+            cout << "滑动窗口前移一位" << endl;
+            if (recvbase == messagenum - 1) {
+                recving = false;
+                break;
+            }
+            recvbase=((recvbase==(messagenum-1))?recvbase:recvbase+1);
+            recvtop=((recvtop<(messagenum-1))?recvtop+1:recvtop);
+            cout << "现在窗口底部是:" << recvbase << ", 现在窗口顶部是:" << recvtop << endl;
+        }
+    }
+    isFINISH = true;
+    cout << "接收文件完成!" << endl;
+    int i;
+    for (i = 0; i < messagenum - 1; i++) {
+        out.write(buffer[i], 8192);
+    }
+    out.write(buffer[i], lastlen);
+    out.close();
+    out.clear();
+    recvbase = 0;
+    recvtop = windowSize - 1;
+    cout << "写文件完成" << endl;
+    return getFileName();
+}
+\end{lstlisting}
+\subsubsection{丢包设计}
+由于所提供的router.exe不能使用，因此我自行设置了一个丢包的函数，原理是设置随机数，然后用随机数mod100，以此设计丢包率，代码如下所示：
+\begin{lstlisting}[title=丢包函数,frame=trbl,language={C++}]
+int judgeRand(){
+    int s=rand()%100;
+    if(s<10){return 0;}
+    else{return 1;}
+}
+\end{lstlisting}
+\begin{lstlisting}[title=发送函数,frame=trbl,language={C++}]
+void sendmessage(message msg) {
+    msg.setEXT();
+    msg.setchecksum();
+    if(judgeRand()==1){
+    if (sendto(Client, (char*)&msg, BUFFER, 0, (SOCKADDR*)&serveraddr, sizeof(SOCKADDR)) == (SOCKET_ERROR)) {
+        SetColor(0,12);
+        cout << "发送错误了!!" << endl;
+    }}
+}
+\end{lstlisting}
+\subsection{结果展示}
+首先是建立连接的过程：
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.4]{G网1.png}
+    \label{fig:6}
+\end{figure}
+这里我增加了一个扫描文件夹的功能，可以看到在发送之前我们是没有1.jpg这个文件的。
+接下来是发送文件的过程：
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.4]{G网2.png}
+    \label{fig:7}
+\end{figure}
+可以看到文件发送成功。同时，我们看到文件夹之下出现了1.jpg这个文件。这证明我们发送成功了。
+
+断开连接：
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.4]{G网3.png}
+    \label{fig:8}
+\end{figure}
+可以看到断开连接也是成功的。
+
+丢包设置：
+我们将丢包率设置为10\%，然后再进行一次发送。
+可以看到出现了提示，这证明这个包是重发的。
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.6]{G网4.png}
+    \label{fig:9}
+\end{figure}
+同时，对比多个包，发现并不是所有包都触发了超时重传的机制。大部分包还是能顺利发送的。
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.6]{G网5.png}
+    \label{fig:10}
+\end{figure}
+最后我们搜索一下，发现丢包率大致符合我们的设置，这证明我的程序是正确的。
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.6]{G网6.png}
+    \label{fig:11}
+\end{figure}
+\section{总结与一些问题}
+本次实验成功实现滑动窗口功能，对理论知识的理解更加深入了。由于我没学过多线程，因此在多线程编程过程中遇到巨大困难，尤其在并发控制上最终勉强处理，采取了一些强制退出的命令，这些命令会在大型项目中导致一些问题，因此在极限条件下程序仍然会面临挑战。
+\end{document}

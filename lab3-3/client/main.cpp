@@ -14,6 +14,13 @@ using namespace std;
 const int windowSize=10;
 #define TIMEOUT 50
 #pragma warning(disable:4996)
+
+//lab3-3新增
+int flag = 0; // 0:慢启动 1:拥塞避免 2:快速恢复
+int cwnd = 0;  // 窗口大小
+int ssthresh = 32;    // 慢启动阈值
+int redundancy = 0;   // 冗余ACK数
+
 int judgeRand(){
     int s=rand()%100;
     if(s<-2){return 0;}
@@ -317,31 +324,42 @@ int sendOneMsg(message msg,int num) {
     }
     msg.seq = num;
     sendmessage(msg);
-    cout<<"len="<<msg.len<<", checksum="<<msg.checksum<<", flag="<<msg.flag<<", seq="<<msg.seq<<endl;
+
     clock_t start = clock();
     while (1) {
         clock_t end = clock();
         if (end - start > TIMEOUT) {
-            cout << "触发重传机制" << endl;
+            flag = 0;   // 超时，回到慢启动
+            redundancy = 0;
+            if (isFINISH) {return 0;}
+            cout << "传输超时" << endl;
             sendmessage(msg);
             start = clock();
+            //lab3-3
+            ssthresh = cwnd / 2;
+            cwnd = 1;
         }
         if (state[num] == 1) {
+            cout<<"len="<<msg.len<<", checksum="<<msg.checksum<<", flag="<<msg.flag<<", seq="<<msg.seq<<endl;
             return 1;
         }
     }
+    return 1;
 }
 //发送线程
 int sendthread() {
-    int sendcase = 0;
+    bool sending = true;
     message msg;
-    while (!sendcase) {
-        for (int i = sendbase; i <= sendtop; i++) {
+    while (sending) {
+        sendtop = sendbase + cwnd;
+        for (int i = sendbase; i <=min(sendtop, messagenum - 1); i++) {
             if (state[i] == 0) {
                 state[i] = -1;
                 msg.seq = i;
                 sendOneMsg(msg,i);
-                sendcase=((i == (messagenum-1))?(sendcase+1):sendcase);
+                if (i == messagenum - 1) {
+                    sending = false;
+                }
             }
         }
     }
@@ -361,8 +379,44 @@ int recvthread() {
             cout << asctime(t_tm) << endl;
             state[msg.ack] = 1;
             cout << endl;
-            if (msg.ack == messagenum - 1) {
-                ExitThread(TRUE);
+            if (state[msg.ack] == 1) {
+                if (flag != 2) {
+                    redundancy++;
+                } else {
+                    cout << "指数增长" << endl;
+                    cwnd += 1;
+                }
+                cout << "收到第" << redundancy << "个冗余数据包" << endl;
+                if (redundancy >= 3) {
+                    cout << "开始快速重传" << endl;
+                    flag = 2;
+                    ssthresh = cwnd / 2;
+                    cwnd = ssthresh + 3;
+                }
+                return 1;
+            } else {
+                if (flag == 1) {
+                    redundancy = 0;
+                }
+                if (flag == 2) {
+                    flag = 1;
+                    redundancy = 0;
+                }
+                state[msg.ack] = 1;
+                cout<<"len="<<msg.len<<", checksum="<<msg.corrupt()<<", flag="<<msg.flag<<", seq="<<msg.seq<<endl;
+                if (cwnd >= ssthresh) {
+                    flag = 1;
+                    cout << "线性增长" << endl;
+                    cwnd += 1 / cwnd;
+
+                }
+                else {
+                    cout << "指数增长" << endl;
+                    cwnd += 1;
+                }
+                if (msg.ack == messagenum - 1) {
+                    ExitThread(TRUE);
+                }
             }
         }
     }
@@ -410,19 +464,24 @@ int main()
     recvThr.detach();
     // 创建一个发送线程
     cout << "开始发送文件" << endl;
+    cwnd = 0;
+    redundancy = 0;
     thread sendThr(sendthread);
     sendThr.detach();
-    sendtop=((messagenum < windowSize)?(messagenum):sendtop);
-    while (!sendcase) {
+    bool isEnd = false;
+    bool sending = true;
+    while (sending) {
         while (state[sendbase] == 1) {
+            redundancy = 0;
             // 收到当前滑动窗口底的数据包ack
             cout << "滑动窗口前移一位" << endl;
             if (sendbase == messagenum - 1) {
-                sendcase += 1;
+                sending = false;
+                isEnd = true;
                 break;
             }
             sendbase++;
-            sendtop=((messagenum-sendtop-1)?(sendtop+1):sendtop);
+
             cout << "现在窗口底部是:" << sendbase << "，窗口顶部是:" << sendtop << endl;
         }
     }
